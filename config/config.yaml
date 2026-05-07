@@ -1,0 +1,72 @@
+# ============================================================
+# AI-Powered Demand Forecasting & Energy Theft Detection
+# Configuration File
+# ============================================================
+
+# --- Data Paths ---
+data:
+  demand_raw: "datasets/Demand_Forecasting_Dataset_2020_2025.xlsx"
+  theft_raw: "datasets/Synthesized_Balanced_Theft_Data.csv"
+  demand_processed: "data/processed/demand_processed.csv"
+  theft_processed: "data/processed/theft_processed.csv"
+  demand_sequences: "data/sequences/demand_sequences.npz"
+  theft_sequences: "data/sequences/theft_sequences.npz"
+
+# --- Preprocessing ---
+preprocessing:
+  demand:
+    target_column: "MW"
+    sequence_length: 24          # 24 time steps lookback
+    train_split: 0.8
+    val_split: 0.1               # remaining 0.1 is test
+    scaler: "standard"             # minmax or standard
+  theft:
+    sequence_length: 12          # 12 months lookback per meter
+    train_split: 0.8
+    val_split: 0.1
+    scaler: "standard"
+    theft_threshold_std: 2.0     # z-score threshold for anomaly labeling
+
+# --- Model Architecture ---
+model:
+  # Shared Encoder
+  gru_hidden_size: 128
+  gru_num_layers: 2
+  gru_dropout: 0.2
+  tcn_num_channels: [64, 128, 128]
+  tcn_kernel_size: 3
+  tcn_dropout: 0.2
+  latent_dim: 128                # Latent feature representation size
+
+  # Forecasting Head
+  forecast_hidden: 64
+  forecast_output: 1             # Single MW prediction
+
+  # Theft Detection Head
+  theft_hidden: 64
+  theft_output: 1                # Probability (sigmoid)
+
+# --- Training ---
+training:
+  batch_size: 32
+  epochs: 10
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 15                   # Early stopping patience
+  loss_weights:
+    forecasting: 1.0             # MSE loss weight
+    theft_detection: 1.0         # BCE loss weight
+  device: "auto"                 # auto, cpu, or cuda
+  save_path: "models/best_model.pth"
+
+# --- Evaluation ---
+evaluation:
+  theft_probability_threshold: 0.5
+  metrics_save_path: "results/metrics/"
+  plots_save_path: "results/plots/"
+
+# --- Dashboard ---
+dashboard:
+  host: "127.0.0.1"
+  port: 8501
+  theme: "dark"
