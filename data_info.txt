@@ -1,0 +1,43 @@
+DEMAND FORECASTING COLUMNS:
+  - Date (datetime64[ns]) | nulls=0 | sample=2020-01-21 00:00:00
+  - Time (object) | nulls=1 | sample=16:00:00
+  - MW (float64) | nulls=0 | sample=25.1
+  - Year (int64) | nulls=0 | sample=2020
+  - Month (object) | nulls=0 | sample=January
+  - DateTime (datetime64[ns]) | nulls=1 | sample=2020-01-21 16:00:00
+
+Shape: (1879, 6)
+
+First 3 rows:
+        Date      Time    MW  Year    Month            DateTime
+0 2020-01-21  16:00:00  25.1  2020  January 2020-01-21 16:00:00
+1 2020-01-06  10:00:00  15.4  2020  January 2020-01-06 10:00:00
+2 2020-01-09  16:00:00  13.0  2020  January 2020-01-09 16:00:00
+
+============================================================
+THEFT DETECTION COLUMNS:
+  - Energy_Meter_ID (object) | nulls=0 | unique=84
+  - Year (int64) | nulls=0 | unique=6
+  - Month (object) | nulls=646 | unique=12
+  - Present_Reading (object) | nulls=0 | unique=1877
+  - Previous_Reading (object) | nulls=0 | unique=1862
+  - Difference (object) | nulls=0 | unique=1754
+  - Meter_Constant (object) | nulls=0 | unique=60
+  - Net_Energy_MU (object) | nulls=13 | unique=1769
+  - Meter_Status (object) | nulls=22 | unique=44
+  - Type of Meter (EM/ ETV) (object) | nulls=22 | unique=68
+  - Particulars (object) | nulls=169 | unique=42
+
+Shape: (2069, 11)
+
+First 3 rows:
+  Energy_Meter_ID  Year Month       Present_Reading       Previous_Reading Difference Meter_Constant Net_Energy_MU Meter_Status Type of Meter (EM/ ETV)                  Particulars
+0         2208926  2020   NaN               94681.1                  88517     6164.1           2000      12328200           OK                     ETV               66kV Incoming 
+1        GECO2400  2020   NaN               12700.5                  10247     2453.5           3000       7360500           OK                     ETV  T1 -20MVA:  66KV SIDE (HV) 
+2        KAU09330  2020   NaN  342281.8 ON(28-1-20)  338102 FROM(01-01-20)     4179.8           1500       7269900          NaN                     ETV                       BANK 1
+
+Last 3 rows:
+     Energy_Meter_ID  Year     Month Present_Reading     Previous_Reading Difference Meter_Constant Net_Energy_MU Meter_Status Type of Meter (EM/ ETV)             Particulars
+2066        14190822  2025  December           15173                13983       1190            100        119000           OK                     ETV  F23-Swaji nutritionals
+2067        Duration  2025  December              MW                 DATE       Time           AMPS            MW         TIME                    DATE                     NaN
+2068               0  2025  December            23.2  2025-05-12 00:00:00   0.416667            264           4.4     17:00:00              21/12/2025                     NaN
